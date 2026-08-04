@@ -1,0 +1,132 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+:root {
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+}
+
+body {
+  font-family: 'Pretendard Variable', Pretendard, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Pulse animation for high risk F grade */
+@keyframes pulse-red {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+  }
+}
+
+.animate-pulse-red {
+  animation: pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Modal backdrop animation */
+.modal-backdrop {
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  transition: opacity 0.25s ease-in-out;
+}
+
+/* Glassmorphism style helper */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* Toast animation */
+@keyframes slide-in-bottom {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in-bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Table hover & transitions */
+tr.data-row {
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+tr.data-row:hover {
+  background-color: #f1f5f9;
+  cursor: pointer;
+}
+
+/* Chart Canvas container aspect ratio control */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 320px;
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    height: 260px;
+  }
+}
+
+/* Leaflet Map container size control */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    height: 340px;
+  }
+}
+
+/* Leaflet popup content typography match */
+.leaflet-popup-content {
+  font-family: 'Pretendard Variable', Pretendard, sans-serif;
+  margin: 10px 12px;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 10px;
+}
+
+/* Marker cluster custom color to match brand palette */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+  background-color: rgba(2, 132, 199, 0.3);
+}
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+  background-color: rgba(2, 132, 199, 0.75);
+  color: #ffffff;
+  font-weight: 700;
+}
