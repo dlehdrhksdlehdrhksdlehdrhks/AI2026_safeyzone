@@ -834,7 +834,7 @@ function getFormattedDate() {
  */
 function setupEventListeners() {
   // Home Buttons (헤더 로고 아이콘 버튼 + 텍스트 버튼) -> 외부 홈페이지로 이동
-  const HOME_URL = 'https://dlehdrhksdlehdrhksdlehdrhks.github.io/AI2026_safeyzone/index.html';
+  const HOME_URL = 'https://dlehdrhksdlehdrhksdlehdrhks.github.io/AI2026/index.html';
   const goHome = () => {
     window.location.href = HOME_URL;
   };
