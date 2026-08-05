@@ -157,11 +157,16 @@ function calculateVulnerability(cctvCount, cctvStatus, facilityType, roadWidth) 
  * 2. Data Loading & CSV Parser Engine
  */
 async function initDataset() {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000); // 15초 안전장치: 무한 로딩 방지
+
   try {
     showLoading(true);
     elements.dataStatusText.textContent = 'CSV 데이터 다운로드 중...';
 
-    const response = await fetch('전국어린이보호구역표준데이터.csv');
+    const response = await fetch('childsafetyzones.csv', { signal: controller.signal });
+    clearTimeout(timeoutId);
+
     if (!response.ok) {
       throw new Error(`CSV Fetch failed HTTP status: ${response.status}`);
     }
@@ -175,8 +180,15 @@ async function initDataset() {
 
     parseAndLoadCsv(csvText);
   } catch (err) {
+    clearTimeout(timeoutId);
+    const isTimeout = err.name === 'AbortError';
     console.warn('Auto fetch dataset error or fallback required:', err);
-    showToast('기본 CSV 로딩에 실패하였습니다. 직접 CSV 파일을 선택해 주세요.', 'error');
+    showToast(
+      isTimeout
+        ? '기본 CSV 로딩이 15초 이상 지연되어 중단했습니다. 직접 CSV 파일을 선택해 주세요.'
+        : '기본 CSV 로딩에 실패하였습니다. 직접 CSV 파일을 선택해 주세요.',
+      'error'
+    );
     elements.dataStatusText.textContent = 'CSV 파일 업로드 필요';
     showLoading(false);
   }
@@ -834,7 +846,7 @@ function getFormattedDate() {
  */
 function setupEventListeners() {
   // Home Buttons (헤더 로고 아이콘 버튼 + 텍스트 버튼) -> 외부 홈페이지로 이동
-  const HOME_URL = 'https://dlehdrhksdlehdrhksdlehdrhks.github.io/AI2026_safeyzone/index.html';
+  const HOME_URL = 'https://dlehdrhksdlehdrhksdlehdrhks.github.io/AI2026/index.html';
   const goHome = () => {
     window.location.href = HOME_URL;
   };
