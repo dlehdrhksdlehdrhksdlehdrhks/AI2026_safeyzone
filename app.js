@@ -35,6 +35,8 @@ const elements = {
   uploadCsvBtn: document.getElementById('uploadCsvBtn'),
   csvFileInput: document.getElementById('csvFileInput'),
   exportCsvBtn: document.getElementById('exportCsvBtn'),
+  homeBtn: document.getElementById('homeBtn'),
+  homeLinkBtn: document.getElementById('homeLinkBtn'),
 
   // KPI Elements
   kpiTotalCount: document.getElementById('kpiTotalCount'),
@@ -442,12 +444,13 @@ function renderPoliceBarChart() {
       },
       scales: {
         x: {
-          ticks: { font: { size: 10 } },
+          ticks: { font: { size: 10 }, color: '#94a3b8' },
           grid: { display: false }
         },
         y: {
           beginAtZero: true,
-          ticks: { precision: 0, font: { size: 10 } }
+          ticks: { precision: 0, font: { size: 10 }, color: '#94a3b8' },
+          grid: { color: 'rgba(148, 163, 184, 0.15)' }
         }
       }
     }
@@ -490,7 +493,7 @@ function renderFacilityDoughnutChart() {
         data: data.length > 0 ? data : [1],
         backgroundColor: colors,
         borderWidth: 2,
-        borderColor: '#ffffff'
+        borderColor: '#1e293b'
       }]
     },
     options: {
@@ -499,7 +502,7 @@ function renderFacilityDoughnutChart() {
       plugins: {
         legend: {
           position: 'bottom',
-          labels: { font: { size: 10 }, boxWidth: 12 }
+          labels: { font: { size: 10 }, boxWidth: 12, color: '#94a3b8' }
         }
       },
       cutout: '65%'
@@ -517,9 +520,10 @@ function initMap() {
     scrollWheelZoom: true
   });
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    subdomains: 'abcd',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
   }).addTo(state.map);
 
   // 대용량(14,640건) 마커도 부드럽게 처리하는 클러스터링 레이어
@@ -561,12 +565,12 @@ function renderLocationMap() {
     marker.bindPopup(`
       <div style="font-size:12px; line-height:1.6; min-width:180px;">
         <div style="font-weight:700; margin-bottom:2px;">${escapeHtml(r.name)}</div>
-        <div style="color:#64748b;">${escapeHtml(r.address)}</div>
+        <div style="color:#94a3b8;">${escapeHtml(r.address)}</div>
         <div style="margin-top:4px;">
           등급: <strong>${r.safetyGrade}</strong> ·
           CCTV: <strong>${r.cctvCount}대</strong> (${isInstalled ? '설치' : '미설치'})
         </div>
-        <div style="color:#64748b;">관할: ${escapeHtml(r.policeStation)}</div>
+        <div style="color:#94a3b8;">관할: ${escapeHtml(r.policeStation)}</div>
       </div>
     `);
 
@@ -611,25 +615,25 @@ function renderTableAndPagination() {
   pageRecords.forEach(r => {
     const gradeBadgeClass = getGradeBadgeStyle(r.safetyGrade);
     const cctvBadge = r.cctvStatus === 'Y' && r.cctvCount > 0
-      ? `<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200"><i class="fa-solid fa-video mr-1 text-[10px]"></i> ${r.cctvCount}대</span>`
-      : `<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-red-50 text-red-600 border border-red-200"><i class="fa-solid fa-video-slash mr-1 text-[10px]"></i> 미설치</span>`;
+      ? `<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"><i class="fa-solid fa-video mr-1 text-[10px]"></i> ${r.cctvCount}대</span>`
+      : `<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-red-500/15 text-red-400 border border-red-500/30"><i class="fa-solid fa-video-slash mr-1 text-[10px]"></i> 미설치</span>`;
 
     html += `
-      <tr class="data-row hover:bg-slate-100 transition-colors cursor-pointer" data-id="${r.id}">
-        <td class="py-3 px-3 font-medium text-slate-600">${escapeHtml(r.facilityType)}</td>
-        <td class="py-3 px-4 font-bold text-slate-900">${escapeHtml(r.name)}</td>
-        <td class="py-3 px-4 text-slate-600 max-w-xs truncate" title="${escapeHtml(r.address)}">${escapeHtml(r.address)}</td>
-        <td class="py-3 px-3 text-slate-600">${escapeHtml(r.policeStation)}</td>
+      <tr class="data-row hover:bg-slate-800 transition-colors cursor-pointer" data-id="${r.id}">
+        <td class="py-3 px-3 font-medium text-slate-400">${escapeHtml(r.facilityType)}</td>
+        <td class="py-3 px-4 font-bold text-slate-100">${escapeHtml(r.name)}</td>
+        <td class="py-3 px-4 text-slate-400 max-w-xs truncate" title="${escapeHtml(r.address)}">${escapeHtml(r.address)}</td>
+        <td class="py-3 px-3 text-slate-400">${escapeHtml(r.policeStation)}</td>
         <td class="py-3 px-3 text-center">${cctvBadge}</td>
-        <td class="py-3 px-3 text-center text-slate-600">${escapeHtml(r.roadWidth)}</td>
-        <td class="py-3 px-3 text-center font-black ${r.vulnerabilityScore >= 80 ? 'text-red-600' : 'text-slate-800'}">${r.vulnerabilityScore}점</td>
+        <td class="py-3 px-3 text-center text-slate-400">${escapeHtml(r.roadWidth)}</td>
+        <td class="py-3 px-3 text-center font-black ${r.vulnerabilityScore >= 80 ? 'text-red-400' : 'text-slate-200'}">${r.vulnerabilityScore}점</td>
         <td class="py-3 px-3 text-center">
           <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${gradeBadgeClass}">
             ${r.safetyGrade}등급
           </span>
         </td>
         <td class="py-3 px-3 text-center">
-          <button class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-600 text-slate-500 flex items-center justify-center transition-colors mx-auto">
+          <button class="w-7 h-7 rounded-lg bg-slate-700 hover:bg-sky-500/20 hover:text-sky-400 text-slate-400 flex items-center justify-center transition-colors mx-auto">
             <i class="fa-solid fa-chevron-right text-xs"></i>
           </button>
         </td>
@@ -648,12 +652,12 @@ function renderTableAndPagination() {
 
 function getGradeBadgeStyle(grade) {
   switch (grade) {
-    case 'S': return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
-    case 'A': return 'bg-blue-100 text-blue-800 border border-blue-300';
-    case 'B': return 'bg-indigo-100 text-indigo-800 border border-indigo-300';
-    case 'D': return 'bg-amber-100 text-amber-800 border border-amber-300';
-    case 'F': return 'bg-red-100 text-red-700 border border-red-200 font-black animate-pulse-red';
-    default: return 'bg-slate-100 text-slate-700';
+    case 'S': return 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30';
+    case 'A': return 'bg-blue-500/15 text-blue-400 border border-blue-500/30';
+    case 'B': return 'bg-indigo-500/15 text-indigo-400 border border-indigo-500/30';
+    case 'D': return 'bg-amber-500/15 text-amber-400 border border-amber-500/30';
+    case 'F': return 'bg-red-500/15 text-red-400 border border-red-500/40 font-black animate-pulse-red';
+    default: return 'bg-slate-700 text-slate-300';
   }
 }
 
@@ -662,7 +666,7 @@ function renderPaginationControls(totalPages) {
 
   // Prev Button
   btnHtml += `
-    <button class="px-3 py-1 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold" 
+    <button class="px-3 py-1 rounded-lg border border-slate-700 text-slate-400 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold" 
       ${state.currentPage === 1 ? 'disabled' : ''} onclick="changePage(${state.currentPage - 1})">
       <i class="fa-solid fa-chevron-left"></i>
     </button>
@@ -678,14 +682,14 @@ function renderPaginationControls(totalPages) {
   for (let p = startPage; p <= endPage; p++) {
     const active = p === state.currentPage;
     btnHtml += `
-      <button class="px-3 py-1 rounded-lg text-xs font-bold transition-all ${active ? 'bg-sky-600 text-white shadow-sm' : 'border border-slate-200 text-slate-700 hover:bg-slate-100'}"
+      <button class="px-3 py-1 rounded-lg text-xs font-bold transition-all ${active ? 'bg-sky-600 text-white shadow-sm' : 'border border-slate-700 text-slate-300 hover:bg-slate-700'}"
         onclick="changePage(${p})">${p}</button>
     `;
   }
 
   // Next Button
   btnHtml += `
-    <button class="px-3 py-1 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold"
+    <button class="px-3 py-1 rounded-lg border border-slate-700 text-slate-400 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold"
       ${state.currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${state.currentPage + 1})">
       <i class="fa-solid fa-chevron-right"></i>
     </button>
@@ -829,6 +833,14 @@ function getFormattedDate() {
  * 10. Event Listeners Setup
  */
 function setupEventListeners() {
+  // Home Buttons (헤더 로고 아이콘 버튼 + 텍스트 버튼) -> 외부 홈페이지로 이동
+  const HOME_URL = 'https://dlehdrhksdlehdrhksdlehdrhks.github.io/AI2026_safeyzone/index.html';
+  const goHome = () => {
+    window.location.href = HOME_URL;
+  };
+  if (elements.homeBtn) elements.homeBtn.addEventListener('click', goHome);
+  if (elements.homeLinkBtn) elements.homeLinkBtn.addEventListener('click', goHome);
+
   // Manual File Upload Button
   elements.uploadCsvBtn.addEventListener('click', () => {
     elements.csvFileInput.click();
@@ -862,7 +874,7 @@ function setupEventListeners() {
   elements.quickFilterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       elements.quickFilterBtns.forEach(b => {
-        b.className = 'quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-all border border-slate-200';
+        b.className = 'quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:bg-slate-700 transition-all border border-slate-700';
       });
       btn.className = 'quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-sky-600 text-white shadow-sm';
       
@@ -938,7 +950,7 @@ function setupEventListeners() {
     elements.quickFilterBtns.forEach((b, i) => {
       b.className = i === 0 
         ? 'quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-sky-600 text-white shadow-sm'
-        : 'quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-all border border-slate-200';
+        : 'quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:bg-slate-700 transition-all border border-slate-700';
     });
 
     applyFiltersAndRender();

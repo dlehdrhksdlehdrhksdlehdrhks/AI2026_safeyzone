@@ -48,21 +48,21 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-sky-500 selection:text-white">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-sky-500 selection:text-white">
 
   <!-- Header Header Shell -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-30 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       
       <!-- Brand & Title -->
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-sky-200">
+        <button id="homeBtn" title="홈으로 이동" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-sky-950/50 hover:brightness-110 active:scale-95 transition-all">
           <i class="fa-solid fa-shield-halved text-xl"></i>
-        </div>
+        </button>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-xl font-bold tracking-tight text-slate-900">전국 어린이 보호구역 안전 사각지대 탐색기</h1>
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-100 text-sky-800 border border-sky-200">
+            <h1 class="text-xl font-bold tracking-tight text-slate-100">전국 어린이 보호구역 안전 사각지대 탐색기</h1>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-500/15 text-sky-400 border border-sky-500/30">
               v2.1.0 Vanilla JS
             </span>
           </div>
@@ -72,18 +72,23 @@
 
       <!-- Header Actions -->
       <div class="flex items-center space-x-3">
-        <div id="dataStatusBadge" class="hidden sm:flex items-center text-xs text-slate-600 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+        <button id="homeLinkBtn" class="inline-flex items-center px-3.5 py-1.5 border border-slate-700 text-xs font-semibold rounded-lg text-slate-300 bg-slate-800 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-sky-500 transition-colors shadow-sm">
+          <i class="fa-solid fa-house text-sky-400 mr-1.5"></i>
+          홈
+        </button>
+
+        <div id="dataStatusBadge" class="hidden sm:flex items-center text-xs text-slate-400 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
           <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-ping"></span>
           <span id="dataStatusText">표준 데이터셋 연동 중...</span>
         </div>
 
-        <button id="uploadCsvBtn" class="inline-flex items-center px-3.5 py-1.5 border border-slate-300 text-xs font-semibold rounded-lg text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors shadow-sm">
-          <i class="fa-solid fa-file-csv text-sky-600 mr-1.5"></i>
+        <button id="uploadCsvBtn" class="inline-flex items-center px-3.5 py-1.5 border border-slate-700 text-xs font-semibold rounded-lg text-slate-300 bg-slate-800 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-sky-500 transition-colors shadow-sm">
+          <i class="fa-solid fa-file-csv text-sky-400 mr-1.5"></i>
           CSV 직접 업로드
         </button>
         <input type="file" id="csvFileInput" accept=".csv" class="hidden" />
 
-        <button id="exportCsvBtn" class="inline-flex items-center px-3.5 py-1.5 border border-transparent text-xs font-semibold rounded-lg text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors shadow-sm">
+        <button id="exportCsvBtn" class="inline-flex items-center px-3.5 py-1.5 border border-transparent text-xs font-semibold rounded-lg text-white bg-sky-600 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-sky-500 transition-colors shadow-sm">
           <i class="fa-solid fa-download mr-1.5"></i>
           분석결과 Export (BOM CSV)
         </button>
@@ -95,10 +100,10 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 space-y-6 w-full">
 
     <!-- Loading Spinner Overlay / Banner -->
-    <div id="loadingOverlay" class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm flex flex-col items-center justify-center space-y-4">
-      <div class="w-12 h-12 border-4 border-sky-200 border-t-sky-600 rounded-full animate-spin"></div>
+    <div id="loadingOverlay" class="bg-slate-900 rounded-2xl p-8 border border-slate-800 shadow-sm flex flex-col items-center justify-center space-y-4">
+      <div class="w-12 h-12 border-4 border-sky-900 border-t-sky-500 rounded-full animate-spin"></div>
       <div class="text-center">
-        <h3 class="text-base font-semibold text-slate-800">14,640개 전국 어린이 보호구역 데이터 로딩 중</h3>
+        <h3 class="text-base font-semibold text-slate-200">14,640개 전국 어린이 보호구역 데이터 로딩 중</h3>
         <p class="text-xs text-slate-500 mt-1">TextDecoder('euc-kr') 인코딩 변환 및 취약 지수 분석 엔진 연산 중...</p>
       </div>
     </div>
@@ -109,96 +114,96 @@
       <!-- 1. KPI Cards (4 Cards) -->
       <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Card 1: 총 보호구역 -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">총 보호구역 수</p>
-              <h2 id="kpiTotalCount" class="text-2xl font-black text-slate-900 mt-1.5">0 <span class="text-sm font-normal text-slate-500">개소</span></h2>
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">총 보호구역 수</p>
+              <h2 id="kpiTotalCount" class="text-2xl font-black text-slate-100 mt-1.5">0 <span class="text-sm font-normal text-slate-500">개소</span></h2>
             </div>
-            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-lg">
+            <div class="w-11 h-11 rounded-xl bg-slate-800 text-slate-300 flex items-center justify-center text-lg">
               <i class="fa-solid fa-school"></i>
             </div>
           </div>
           <div class="mt-3 flex items-center text-xs text-slate-500">
-            <span class="text-slate-600 font-medium">전국 표준 데이터셋 100% 반영</span>
+            <span class="text-slate-400 font-medium">전국 표준 데이터셋 100% 반영</span>
           </div>
         </div>
 
         <!-- Card 2: CCTV 미설치 구역 -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-xs font-semibold text-red-600 uppercase tracking-wider">🔴 CCTV 미설치 구역</p>
-              <h2 id="kpiNoCctvCount" class="text-2xl font-black text-red-600 mt-1.5">0 <span class="text-sm font-normal text-slate-500">개소</span></h2>
+              <p class="text-xs font-semibold text-red-400 uppercase tracking-wider">🔴 CCTV 미설치 구역</p>
+              <h2 id="kpiNoCctvCount" class="text-2xl font-black text-red-400 mt-1.5">0 <span class="text-sm font-normal text-slate-500">개소</span></h2>
             </div>
-            <div class="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-lg">
+            <div class="w-11 h-11 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center text-lg">
               <i class="fa-solid fa-video-slash"></i>
             </div>
           </div>
           <div class="mt-3 flex items-center text-xs text-slate-500">
-            <span class="text-red-500 font-medium">보안 인프라 보강 우선 대상</span>
+            <span class="text-red-400 font-medium">보안 인프라 보강 우선 대상</span>
           </div>
         </div>
 
         <!-- Card 3: 미설치 비율 -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-xs font-semibold text-amber-600 uppercase tracking-wider">⚠️ 미설치 비율 (%)</p>
-              <h2 id="kpiNoCctvRatio" class="text-2xl font-black text-amber-600 mt-1.5">0.0%</h2>
+              <p class="text-xs font-semibold text-amber-400 uppercase tracking-wider">⚠️ 미설치 비율 (%)</p>
+              <h2 id="kpiNoCctvRatio" class="text-2xl font-black text-amber-400 mt-1.5">0.0%</h2>
             </div>
-            <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg">
+            <div class="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg">
               <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
           </div>
           <div class="mt-3 flex items-center text-xs text-slate-500">
-            <span class="text-amber-600 font-medium">전체 구역 대비 비설치 비중</span>
+            <span class="text-amber-400 font-medium">전체 구역 대비 비설치 비중</span>
           </div>
         </div>
 
         <!-- Card 4: F등급 고위험 구역 -->
-        <div class="bg-white p-5 rounded-2xl border border-red-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+        <div class="bg-slate-900 p-5 rounded-2xl border border-red-900/60 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-xs font-extrabold text-red-700 uppercase tracking-wider">🚨 F등급 (고위험) 구역</p>
-              <h2 id="kpiFGradeCount" class="text-2xl font-black text-red-700 mt-1.5">0 <span class="text-sm font-normal text-slate-500">개소</span></h2>
+              <p class="text-xs font-extrabold text-red-400 uppercase tracking-wider">🚨 F등급 (고위험) 구역</p>
+              <h2 id="kpiFGradeCount" class="text-2xl font-black text-red-400 mt-1.5">0 <span class="text-sm font-normal text-slate-500">개소</span></h2>
             </div>
-            <div class="w-11 h-11 rounded-xl bg-red-100 text-red-700 flex items-center justify-center text-lg animate-pulse-red">
+            <div class="w-11 h-11 rounded-xl bg-red-500/15 text-red-400 flex items-center justify-center text-lg animate-pulse-red">
               <i class="fa-solid fa-circle-exclamation"></i>
             </div>
           </div>
-          <div class="mt-3 flex items-center text-xs text-red-600 font-bold">
+          <div class="mt-3 flex items-center text-xs text-red-400 font-bold">
             <i class="fa-solid fa-bullhorn mr-1"></i> 긴급 예산 배정 1순위 구역
           </div>
         </div>
       </section>
 
       <!-- 2. Smart Filters & Search Bar Section -->
-      <section class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
+      <section class="bg-slate-900 rounded-2xl p-5 border border-slate-800 shadow-sm space-y-4">
         
         <!-- Quick Filter Tabs & Search Header -->
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-4">
           <!-- Quick Filter Tabs -->
           <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 lg:pb-0 scrollbar-none" id="quickFilterContainer">
             <button data-filter="all" class="quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-sky-600 text-white shadow-sm">
               <i class="fa-solid fa-list-ul mr-1.5"></i> 전체 보기
             </button>
-            <button data-filter="no_cctv" class="quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-all border border-slate-200">
-              <i class="fa-solid fa-video-slash text-red-500 mr-1.5"></i> 🔴 미설치 구역
+            <button data-filter="no_cctv" class="quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:bg-slate-700 transition-all border border-slate-700">
+              <i class="fa-solid fa-video-slash text-red-400 mr-1.5"></i> 🔴 미설치 구역
             </button>
-            <button data-filter="f_grade" class="quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-all border border-slate-200">
-              <i class="fa-solid fa-circle-exclamation text-red-600 mr-1.5"></i> 🚨 F등급 고위험
+            <button data-filter="f_grade" class="quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:bg-slate-700 transition-all border border-slate-700">
+              <i class="fa-solid fa-circle-exclamation text-red-400 mr-1.5"></i> 🚨 F등급 고위험
             </button>
-            <button data-filter="vulnerable" class="quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-all border border-slate-200">
-              <i class="fa-solid fa-triangle-exclamation text-amber-500 mr-1.5"></i> 🟡 취약구역 (D & F)
+            <button data-filter="vulnerable" class="quick-filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:bg-slate-700 transition-all border border-slate-700">
+              <i class="fa-solid fa-triangle-exclamation text-amber-400 mr-1.5"></i> 🟡 취약구역 (D & F)
             </button>
           </div>
 
           <!-- Keyword Search Input -->
           <div class="relative w-full lg:w-80">
-            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-            <input type="text" id="searchInput" placeholder="시설명 또는 도로명/지번 주소 검색..." class="w-full pl-9 pr-9 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all">
-            <button id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            <input type="text" id="searchInput" placeholder="시설명 또는 도로명/지번 주소 검색..." class="w-full pl-9 pr-9 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-slate-100 placeholder:text-slate-500 focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all">
+            <button id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
               <i class="fa-solid fa-xmark text-xs"></i>
             </button>
           </div>
@@ -208,32 +213,32 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <!-- Managing Agency / Region -->
           <div>
-            <label class="block text-[11px] font-bold text-slate-500 mb-1">관리기관 / 지자체</label>
-            <select id="agencySelect" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
+            <label class="block text-[11px] font-bold text-slate-400 mb-1">관리기관 / 지자체</label>
+            <select id="agencySelect" class="w-full bg-slate-800 border border-slate-700 text-slate-200 rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
               <option value="">전체 지자체/기관</option>
             </select>
           </div>
 
           <!-- Police Station -->
           <div>
-            <label class="block text-[11px] font-bold text-slate-500 mb-1">관할 경찰서</label>
-            <select id="policeSelect" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
+            <label class="block text-[11px] font-bold text-slate-400 mb-1">관할 경찰서</label>
+            <select id="policeSelect" class="w-full bg-slate-800 border border-slate-700 text-slate-200 rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
               <option value="">전체 경찰서</option>
             </select>
           </div>
 
           <!-- Facility Type -->
           <div>
-            <label class="block text-[11px] font-bold text-slate-500 mb-1">시설 종류</label>
-            <select id="typeSelect" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
+            <label class="block text-[11px] font-bold text-slate-400 mb-1">시설 종류</label>
+            <select id="typeSelect" class="w-full bg-slate-800 border border-slate-700 text-slate-200 rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
               <option value="">전체 시설종류</option>
             </select>
           </div>
 
           <!-- Safety Grade -->
           <div>
-            <label class="block text-[11px] font-bold text-slate-500 mb-1">안전 등급</label>
-            <select id="gradeSelect" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
+            <label class="block text-[11px] font-bold text-slate-400 mb-1">안전 등급</label>
+            <select id="gradeSelect" class="w-full bg-slate-800 border border-slate-700 text-slate-200 rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
               <option value="">전체 등급 (S~F)</option>
               <option value="S">🟢 S등급 (0~19점 - 최상 안심)</option>
               <option value="A">🔵 A등급 (20~39점 - 양호)</option>
@@ -246,17 +251,17 @@
 
         <!-- Filter Action Tools -->
         <div class="flex items-center justify-between pt-2">
-          <span id="activeFilterBadge" class="text-xs text-slate-500 font-medium">
-            <i class="fa-solid fa-filter text-sky-600 mr-1"></i> 총 <span id="filteredCountText" class="font-bold text-slate-900">0</span>건 선택됨
+          <span id="activeFilterBadge" class="text-xs text-slate-400 font-medium">
+            <i class="fa-solid fa-filter text-sky-500 mr-1"></i> 총 <span id="filteredCountText" class="font-bold text-slate-100">0</span>건 선택됨
           </span>
-          <button id="resetFilterBtn" class="text-xs text-slate-500 hover:text-slate-800 font-semibold flex items-center transition-colors">
+          <button id="resetFilterBtn" class="text-xs text-slate-400 hover:text-slate-200 font-semibold flex items-center transition-colors">
             <i class="fa-solid fa-rotate-left mr-1"></i> 필터 초기화
           </button>
         </div>
       </section>
 
       <!-- 3. Dynamic Policy Briefing Banner (원클릭 정책 보고서 생성기) -->
-      <section class="bg-gradient-to-r from-slate-900 via-sky-900 to-slate-900 text-white rounded-2xl p-5 shadow-lg relative overflow-hidden">
+      <section class="bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 border border-slate-800 text-white rounded-2xl p-5 shadow-lg relative overflow-hidden">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
           <div class="space-y-1.5 flex-1">
             <div class="flex items-center space-x-2">
@@ -281,13 +286,13 @@
       <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         <!-- Chart 1: Bar Chart (TOP 10 미설치 경찰서) -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-sm space-y-3">
           <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-slate-900 flex items-center">
-              <i class="fa-solid fa-chart-column text-sky-600 mr-2"></i>
+            <h3 class="text-sm font-bold text-slate-100 flex items-center">
+              <i class="fa-solid fa-chart-column text-sky-400 mr-2"></i>
               TOP 10 CCTV 미설치 관할 경찰서
             </h3>
-            <span class="text-[11px] text-slate-400 font-medium">건수 기준</span>
+            <span class="text-[11px] text-slate-500 font-medium">건수 기준</span>
           </div>
           <div class="chart-container">
             <canvas id="chartPoliceBar"></canvas>
@@ -295,13 +300,13 @@
         </div>
 
         <!-- Chart 2: Doughnut Chart (시설 종류별 미설치 비율) -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-sm space-y-3">
           <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-slate-900 flex items-center">
-              <i class="fa-solid fa-chart-pie text-indigo-600 mr-2"></i>
+            <h3 class="text-sm font-bold text-slate-100 flex items-center">
+              <i class="fa-solid fa-chart-pie text-indigo-400 mr-2"></i>
               시설 종류별 미설치 비중
             </h3>
-            <span class="text-[11px] text-slate-400 font-medium">유치원/어린이집/초등</span>
+            <span class="text-[11px] text-slate-500 font-medium">유치원/어린이집/초등</span>
           </div>
           <div class="chart-container">
             <canvas id="chartFacilityDoughnut"></canvas>
@@ -311,34 +316,34 @@
       </section>
 
       <!-- 4-2. Real Map: 위/경도 위치 분포 (Leaflet + OpenStreetMap) -->
-      <section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+      <section class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-sm space-y-3">
         <div class="flex items-center justify-between">
-          <h3 class="text-sm font-bold text-slate-900 flex items-center">
-            <i class="fa-solid fa-map-location-dot text-emerald-600 mr-2"></i>
+          <h3 class="text-sm font-bold text-slate-100 flex items-center">
+            <i class="fa-solid fa-map-location-dot text-emerald-400 mr-2"></i>
             어린이 보호구역 위치 분포 지도
           </h3>
           <div class="flex items-center space-x-2 text-[11px]">
-            <span class="inline-flex items-center text-emerald-700 font-semibold"><span class="w-2 h-2 rounded-full bg-emerald-500 mr-1"></span> CCTV 설치</span>
-            <span class="inline-flex items-center text-red-600 font-semibold"><span class="w-2 h-2 rounded-full bg-red-500 mr-1"></span> CCTV 미설치</span>
-            <span class="text-slate-400 font-medium ml-1">클릭 시 상세 정보</span>
+            <span class="inline-flex items-center text-emerald-400 font-semibold"><span class="w-2 h-2 rounded-full bg-emerald-500 mr-1"></span> CCTV 설치</span>
+            <span class="inline-flex items-center text-red-400 font-semibold"><span class="w-2 h-2 rounded-full bg-red-500 mr-1"></span> CCTV 미설치</span>
+            <span class="text-slate-500 font-medium ml-1">클릭 시 상세 정보</span>
           </div>
         </div>
-        <div id="chartScatterMap" class="map-container rounded-xl overflow-hidden border border-slate-200"></div>
+        <div id="chartScatterMap" class="map-container rounded-xl overflow-hidden border border-slate-800"></div>
       </section>
 
       <!-- 5. Interactive Data Table & Pagination Section -->
-      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-5">
+      <section class="bg-slate-900 rounded-2xl border border-slate-800 shadow-sm overflow-hidden space-y-4 p-5">
         
         <!-- Table Header Control Bar -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-100">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
           <div>
-            <h3 class="text-base font-bold text-slate-900">어린이 보호구역 데이터 목록</h3>
+            <h3 class="text-base font-bold text-slate-100">어린이 보호구역 데이터 목록</h3>
             <p class="text-xs text-slate-500">행을 클릭하시면 상세 감점 요인 분석 보고서를 확인할 수 있습니다.</p>
           </div>
 
           <div class="flex items-center space-x-3 text-xs">
-            <label class="text-slate-500 font-medium">페이지 당 보기:</label>
-            <select id="pageSizeSelect" class="bg-slate-50 border border-slate-200 rounded-lg py-1 px-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-sky-500">
+            <label class="text-slate-400 font-medium">페이지 당 보기:</label>
+            <select id="pageSizeSelect" class="bg-slate-800 border border-slate-700 text-slate-200 rounded-lg py-1 px-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-sky-500">
               <option value="10">10개씩</option>
               <option value="25" selected>25개씩</option>
               <option value="50">50개씩</option>
@@ -351,27 +356,27 @@
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse">
             <thead>
-              <tr class="bg-slate-50 border-y border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider select-none">
+              <tr class="bg-slate-800/60 border-y border-slate-700 text-[11px] font-bold text-slate-400 uppercase tracking-wider select-none">
                 <th scope="col" class="py-3 px-3">시설종류</th>
-                <th scope="col" class="py-3 px-4 sortable cursor-pointer hover:text-sky-600 transition-colors" data-sort="name">
-                  대상시설명 <i class="fa-solid fa-sort ml-1 text-slate-300"></i>
+                <th scope="col" class="py-3 px-4 sortable cursor-pointer hover:text-sky-400 transition-colors" data-sort="name">
+                  대상시설명 <i class="fa-solid fa-sort ml-1 text-slate-500"></i>
                 </th>
                 <th scope="col" class="py-3 px-4">소재지 주소</th>
                 <th scope="col" class="py-3 px-3">관할경찰서</th>
-                <th scope="col" class="py-3 px-3 text-center sortable cursor-pointer hover:text-sky-600 transition-colors" data-sort="cctvCount">
-                  CCTV <i class="fa-solid fa-sort ml-1 text-slate-300"></i>
+                <th scope="col" class="py-3 px-3 text-center sortable cursor-pointer hover:text-sky-400 transition-colors" data-sort="cctvCount">
+                  CCTV <i class="fa-solid fa-sort ml-1 text-slate-500"></i>
                 </th>
                 <th scope="col" class="py-3 px-3 text-center">도로폭</th>
-                <th scope="col" class="py-3 px-3 text-center sortable cursor-pointer hover:text-sky-600 transition-colors" data-sort="vulnerabilityScore">
-                  취약지수 <i class="fa-solid fa-sort ml-1 text-slate-300"></i>
+                <th scope="col" class="py-3 px-3 text-center sortable cursor-pointer hover:text-sky-400 transition-colors" data-sort="vulnerabilityScore">
+                  취약지수 <i class="fa-solid fa-sort ml-1 text-slate-500"></i>
                 </th>
-                <th scope="col" class="py-3 px-3 text-center sortable cursor-pointer hover:text-sky-600 transition-colors" data-sort="safetyGrade">
-                  안전등급 <i class="fa-solid fa-sort ml-1 text-slate-300"></i>
+                <th scope="col" class="py-3 px-3 text-center sortable cursor-pointer hover:text-sky-400 transition-colors" data-sort="safetyGrade">
+                  안전등급 <i class="fa-solid fa-sort ml-1 text-slate-500"></i>
                 </th>
                 <th scope="col" class="py-3 px-3 text-center">상세</th>
               </tr>
             </thead>
-            <tbody id="tableBody" class="divide-y divide-slate-100 text-xs">
+            <tbody id="tableBody" class="divide-y divide-slate-800 text-xs">
               <!-- Dynamically populated rows by Vanilla JS -->
             </tbody>
           </table>
@@ -379,15 +384,15 @@
 
         <!-- Empty State Container -->
         <div id="emptyTableState" class="hidden py-12 text-center space-y-3">
-          <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto text-xl">
+          <div class="w-12 h-12 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center mx-auto text-xl">
             <i class="fa-solid fa-folder-open"></i>
           </div>
-          <h4 class="text-sm font-bold text-slate-700">조건에 일치하는 어린이 보호구역이 없습니다</h4>
+          <h4 class="text-sm font-bold text-slate-300">조건에 일치하는 어린이 보호구역이 없습니다</h4>
           <p class="text-xs text-slate-500">필터 조건이나 검색어를 변경해 보세요.</p>
         </div>
 
         <!-- Pagination Controls Bar -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-slate-100 text-xs">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-slate-800 text-xs">
           <div id="paginationInfo" class="text-slate-500 font-medium">
             Showing 1 to 25 of 14,640 entries
           </div>
@@ -403,10 +408,10 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500">
+  <footer class="bg-slate-900 border-t border-slate-800 mt-12 py-6 text-center text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4">
-      <p class="font-medium text-slate-600">대한민국 공공데이터 포털 「전국어린이보호구역표준데이터」 연동 대시보드</p>
-      <p class="mt-1 text-slate-400">Pure Vanilla JavaScript (ES6+) • Tailwind CSS • Chart.js • PapaParse Integration</p>
+      <p class="font-medium text-slate-400">대한민국 공공데이터 포털 「전국어린이보호구역표준데이터」 연동 대시보드</p>
+      <p class="mt-1 text-slate-500">Pure Vanilla JavaScript (ES6+) • Tailwind CSS • Chart.js • PapaParse Integration</p>
     </div>
   </footer>
 
@@ -416,10 +421,10 @@
     <div id="modalBackdrop" class="fixed inset-0 modal-backdrop"></div>
 
     <!-- Modal Content Box -->
-    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full z-10 overflow-hidden transform transition-all flex flex-col max-h-[90vh]">
+    <div class="bg-slate-900 rounded-3xl shadow-2xl max-w-2xl w-full z-10 overflow-hidden transform transition-all flex flex-col max-h-[90vh] border border-slate-800">
       
       <!-- Modal Header -->
-      <div class="px-6 py-4 bg-gradient-to-r from-slate-900 to-sky-950 text-white flex items-center justify-between">
+      <div class="px-6 py-4 bg-gradient-to-r from-slate-950 to-sky-950 text-white flex items-center justify-between">
         <div class="flex items-center space-x-3">
           <div id="modalGradeIcon" class="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center font-black text-lg text-white">
             F
@@ -439,49 +444,49 @@
       <div class="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
         
         <!-- Risk Score Overview Box -->
-        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-center justify-between">
+        <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 flex items-center justify-between">
           <div>
-            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">안전 취약 지수 (Vulnerability Score)</p>
+            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">안전 취약 지수 (Vulnerability Score)</p>
             <div class="flex items-baseline space-x-2 mt-1">
-              <span id="modalScoreText" class="text-3xl font-black text-red-600">85</span>
-              <span class="text-slate-400 font-bold">/ 100점</span>
+              <span id="modalScoreText" class="text-3xl font-black text-red-400">85</span>
+              <span class="text-slate-500 font-bold">/ 100점</span>
             </div>
           </div>
-          <div id="modalGradeBadge" class="px-4 py-2 rounded-xl text-xs font-black bg-red-100 text-red-700 border border-red-200">
+          <div id="modalGradeBadge" class="px-4 py-2 rounded-xl text-xs font-black bg-red-500/15 text-red-400 border border-red-500/40">
             F등급 (극심 위험)
           </div>
         </div>
 
         <!-- Score Breakdown Factor Items -->
         <div class="space-y-3">
-          <h4 class="font-bold text-slate-800 text-xs flex items-center">
-            <i class="fa-solid fa-calculator text-sky-600 mr-1.5"></i> 취약 지수 감점 요인 세부 산식
+          <h4 class="font-bold text-slate-200 text-xs flex items-center">
+            <i class="fa-solid fa-calculator text-sky-400 mr-1.5"></i> 취약 지수 감점 요인 세부 산식
           </h4>
 
           <div class="space-y-2.5">
             <!-- CCTV Factor -->
-            <div class="p-3 bg-white border border-slate-200 rounded-xl space-y-1">
+            <div class="p-3 bg-slate-800 border border-slate-700 rounded-xl space-y-1">
               <div class="flex justify-between font-semibold">
-                <span class="text-slate-700">1. CCTV 설치 현황</span>
-                <span id="modalCctvScore" class="text-red-600 font-bold">+50점 (미설치)</span>
+                <span class="text-slate-300">1. CCTV 설치 현황</span>
+                <span id="modalCctvScore" class="text-red-400 font-bold">+50점 (미설치)</span>
               </div>
               <p id="modalCctvDetail" class="text-slate-500 text-[11px]">CCTV 0대 설치 (설치여부: N)</p>
             </div>
 
             <!-- Facility Factor -->
-            <div class="p-3 bg-white border border-slate-200 rounded-xl space-y-1">
+            <div class="p-3 bg-slate-800 border border-slate-700 rounded-xl space-y-1">
               <div class="flex justify-between font-semibold">
-                <span class="text-slate-700">2. 시설 종류 가중치</span>
-                <span id="modalFacilityScore" class="text-amber-600 font-bold">+25점 (영유아)</span>
+                <span class="text-slate-300">2. 시설 종류 가중치</span>
+                <span id="modalFacilityScore" class="text-amber-400 font-bold">+25점 (영유아)</span>
               </div>
               <p id="modalFacilityDetail" class="text-slate-500 text-[11px]">영유아 주 이용 시설 (어린이집/유치원)</p>
             </div>
 
             <!-- Road Width Factor -->
-            <div class="p-3 bg-white border border-slate-200 rounded-xl space-y-1">
+            <div class="p-3 bg-slate-800 border border-slate-700 rounded-xl space-y-1">
               <div class="flex justify-between font-semibold">
-                <span class="text-slate-700">3. 도로 폭 조건</span>
-                <span id="modalRoadScore" class="text-amber-600 font-bold">+25점 (협소)</span>
+                <span class="text-slate-300">3. 도로 폭 조건</span>
+                <span id="modalRoadScore" class="text-amber-400 font-bold">+25점 (협소)</span>
               </div>
               <p id="modalRoadDetail" class="text-slate-500 text-[11px]">도로폭 6m 미만 또는 정보 미기재</p>
             </div>
@@ -490,18 +495,18 @@
 
         <!-- Location & Administrative Info -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
-            <span class="text-[11px] font-bold text-slate-400">소재지 도로명/지번 주소</span>
-            <p id="modalAddress" class="font-semibold text-slate-800 text-xs">주소 정보</p>
+          <div class="bg-slate-800 p-3.5 rounded-xl border border-slate-700 space-y-1">
+            <span class="text-[11px] font-bold text-slate-500">소재지 도로명/지번 주소</span>
+            <p id="modalAddress" class="font-semibold text-slate-200 text-xs">주소 정보</p>
           </div>
-          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
-            <span class="text-[11px] font-bold text-slate-400">관할 경찰서 & 관리기관</span>
-            <p id="modalManagingInfo" class="font-semibold text-slate-800 text-xs">관할 정보</p>
+          <div class="bg-slate-800 p-3.5 rounded-xl border border-slate-700 space-y-1">
+            <span class="text-[11px] font-bold text-slate-500">관할 경찰서 & 관리기관</span>
+            <p id="modalManagingInfo" class="font-semibold text-slate-200 text-xs">관할 정보</p>
           </div>
         </div>
 
         <!-- External Map Quick Action Links -->
-        <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+        <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
           <span class="text-[11px] text-slate-500">지도 서비스 바로가기:</span>
           <div class="flex items-center space-x-2">
             <a id="modalKakaoMapBtn" href="#" target="_blank" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-amber-300 text-slate-900 font-bold text-[11px] hover:bg-amber-400 transition-colors">
