@@ -6,8 +6,8 @@
 
 body {
   font-family: 'Pretendard Variable', Pretendard, sans-serif;
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: #020617;
+  color: #f1f5f9;
 }
 
 /* Custom scrollbars */
@@ -16,10 +16,10 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #0f172a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #334155;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -76,7 +76,7 @@ tr.data-row {
 }
 
 tr.data-row:hover {
-  background-color: #f1f5f9;
+  background-color: #1e293b;
   cursor: pointer;
 }
 
@@ -111,10 +111,41 @@ tr.data-row:hover {
 .leaflet-popup-content {
   font-family: 'Pretendard Variable', Pretendard, sans-serif;
   margin: 10px 12px;
+  color: #e2e8f0;
 }
 
 .leaflet-popup-content-wrapper {
   border-radius: 10px;
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.leaflet-popup-tip {
+  background: #1e293b;
+}
+
+.leaflet-popup-content b,
+.leaflet-popup-content strong {
+  color: #f1f5f9;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: #94a3b8;
+}
+
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-bottom: 1px solid #334155;
+}
+
+.leaflet-control-attribution {
+  background: rgba(15, 23, 42, 0.75) !important;
+  color: #94a3b8 !important;
+}
+.leaflet-control-attribution a {
+  color: #7dd3fc !important;
 }
 
 /* Marker cluster custom color to match brand palette */
